@@ -1,0 +1,87 @@
+{% extends 'SiteBundle/Views//Templates/Layout.twig' %}
+
+{%block head %}
+<title>MeteoVergne | Accueil</title>
+{% endblock %}
+
+{%block content %}
+<div class="jumbotron headerIndex">
+  <h1 class="display-3">Mete'Auvergne</h1>
+  <p class="lead">Toute la météo en Auvergne</p>
+</div>
+<div class="container containerAccueil">
+  <div class="row rowHome">
+    <h1>Observations</h1>
+  </div>
+  <div class="row">
+    <div class="col-md-4 thumb">
+      <div class="card">
+        <div class="card-block">
+          <a href="#"><img class="card-img-top" src="{{ rootImg }}/thumb_modele/imgSat.jpg" alt="Card image cap"></a>
+          <div class="card-body">
+            <p class="card-text">Image Satellite Visible<br/>Domaine France</p>
+          </div>
+        </div>  
+      </div>
+    </div>
+    <div class="col-md-4 thumb">
+      <div class="card">
+        <div class="card-block">
+          <img class="card-img-top" src="{{ rootImg }}/thumb_modele/tca.jpg" alt="Card image cap">
+          <div class="card-body">
+            <p class="card-text">Top Cloud Alarm <br/>Domaine France</p>
+          </div>
+        </div>  
+      </div>
+    </div>
+    <div class="col-md-4 thumb">
+      <div class="card">
+        <div class="card-block">
+          <img class="card-img-top" src="{{ rootImg }}/thumb_modele/tableau.jpg" alt="Card image cap">
+          <div class="card-body">
+            <p class="card-text">Tableau des Observations <br/>Observation Aeroport d'Aulnat</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="row rowHome">
+    <h1>Météo France</h1>
+  </div>
+  <div class="row">
+    {% for model in modelMF %}
+    <div class="col-md-4 thumb">
+      <div class="card">
+         <div class="card-block">
+          {% if model.active %}
+           <a href="{{ pathRoot }}/modele/arome0025/HD/temperature-a-2-m"><img class="card-img-top" src="{{ rootImg }}/thumb_modele/{{ model.thumbnail }} " alt="Card image cap"></a>
+          {% else %}
+           <img class="card-img-top" src="{{ rootImg }}/thumb_modele/{{ model.thumbnail }} " alt="Card image cap">
+          {% endif %}
+          <div class="card-body">
+            <p class="card-text">{{ model.smallDescription |nl2br }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <hr>
+  <div class="row rowHome">
+    <h1>GFS</h1>
+  </div>
+  <div class="row">
+    <div class="col-md-4 thumb">
+      <div class="card">
+        <div class="card-block">
+          <img class="card-img-top" src="{{ rootImg }}/thumb_modele/gfs.jpg" alt="Card image cap">
+          <div class="card-body">
+            <p class="card-text">Le model GFS du NOAA<br/>Domaine Europe et France</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

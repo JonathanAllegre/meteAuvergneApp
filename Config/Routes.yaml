@@ -1,0 +1,55 @@
+### Inserer les routes ici ###
+#### SITE BUNDLE #####
+
+0:
+    method: GET
+    url: /
+    bundle: SiteBundle
+    controller: HomeController
+    action: Index
+
+1:
+    method: GET
+    url: /modele/arome0025/LD/{parametre}
+    bundle: SiteBundle
+    controller: ModelController
+    action: arome0025Ld
+
+2:
+    method: GET
+    url: /modele/arome0025/HD/{parametre}
+    bundle: SiteBundle
+    controller: ModelController
+    action: arome0025Hd
+
+
+4:
+    method: GET
+    url: /modele/arpege01/HD/{parametre}
+    bundle: SiteBundle
+    controller: ModelController
+    action: arpege01Hd
+
+5:
+    method: POST
+    url: /previsions/recherche
+    bundle: SiteBundle
+    controller: ForecastController
+    action: search
+
+6:
+    method: GET
+    url: /previsions/{model}
+    bundle: SiteBundle
+    controller: ForecastController
+    action: index
+
+7:
+    method: GET
+    url: /previsions/{model}/{idVille}/{slugVille}
+    bundle: SiteBundle
+    controller: ForecastController
+    action: forecast 
+
+
+    

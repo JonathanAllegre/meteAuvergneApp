@@ -1,0 +1,38 @@
+{% extends 'SiteBundle/Views//Templates/Layout.twig' %}
+{% block head %}
+<title>MeteoVergne | Arpege 0.01</title>
+{% endblock %}
+{% block content %}
+<div class="jumbotron headerModel">
+   <h1 class="display-3">{{ infoModel.title }} {{ Source.htmlTitle }}</h1>
+   <p class="lead">Run du model {{ infoModel.title }} de {{ Source.htmlTitle }} du {{ dateMaj }} - Run de {{ run }}h</p>
+</div>
+<div class="containerfluid containerAccueil">
+   <div class="row">
+      <div class="col-md-2" style="left:-25px;top:64px; border-right:dashed 1px #353a40;">
+         {% for button in echBar %}
+         <button type="button"class="btn btn-secondary btn-block btn-sm b_ech" ech="{{ loop.index0 }}" id="{{ loop.index0 }}">{{ button.begin }}</button>
+         {% endfor %}
+      </div>
+      <div class="col-md-10">
+         <h1>{{ infoParametreMeteo.htmlTitle }} <small><span id="htmlEch"></span></small></h1>
+         <hr/>
+         {% for param in listeParam %}
+         {% if param.active %}
+             <a href="{{ pathRoot }}/modele/{{ infoModel.codeTitle }}/{{ param.slug }}" class="btn btn-outline-secondary btn-sm">{{ param.buttonTitle }}</a>
+          {% else %}
+             <a href="{{ pathRoot }}/modele/{{ infoModel.codeTitle }}/{{ param.url }}" class="btn btn-outline-secondary btn-sm disabled">{{ param.buttonTitle }}</a>
+         {% endif %} 
+         {% endfor %}
+         <span id="baseUrl" url="{{ rootPng }}/{{ infoModel.codeTitle }}/{{ infoParametreMeteo.codeTitle }}"></span> 
+         <br/>
+         <div id="map" style="border:solid 2px black;margin-top:10px;width:100%; min-height:80%;; background-color:#FEE"></div>
+         <div id="legend" style=""><h4>{{ infoParametreMeteo.htmlTitle }}</h4></div>
+      </div>
+   </div>
+</div>
+{% endblock %}
+{% block script %}
+<script src="{{ rootScript }}/Map/{{ infoParametreMeteo.mapFile }}.js"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwWjV6aqAqofK-R2qFSQXFO5Y7WRYn264&callback=initMap"></script>
+{% endblock %}

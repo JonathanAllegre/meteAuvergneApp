@@ -1,0 +1,27 @@
+############################
+## RENAME General.yaml #####
+############################
+
+### MOD 0 = PROD | 1 = DEV ###
+mod: 1
+
+### INFO DE BDD ###
+bddLocal:
+    host: ****
+    dbname: ****
+    utilisateur: ****
+    mdp: ****
+
+bddProd:
+    host: ****
+    dbname: ****
+    utilisateur: ****
+    mdp: ****
+
+### PREFIX ###
+prefixLocal: /meteoVergneV3
+prefixProd: /meteauvergne
+
+### TWIG CACHE # false ou dossier à la racine ###
+twigCache: false
+cachePath: tmp/twig

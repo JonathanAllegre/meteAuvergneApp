@@ -1,0 +1,271 @@
+{% extends 'SiteBundle/Views//Templates/Layout.twig' %}
+{% block head %}
+<title>MeteoVergne | Arome 0.025</title>
+{% endblock %}
+{% block content %}
+<div class="jumbotron headerModel">
+   <h1 class="display-3">Previsions pour {{ infoCity.realName }}</h1>
+   <p class="lead">Modèle {{ infoModel.smallDescription }}</p>
+</div>
+    <div class="container-fluid">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="tmp-tab" data-toggle="tab" href="#tmp" role="tab" aria-controls="tmp" aria-selected="true">Températures</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="precip-tab" data-toggle="tab" href="#precip" role="tab" aria-controls="precip" aria-selected="false">Préciptitations</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="vent-tab" data-toggle="tab" href="#vent" role="tab" aria-controls="vent" aria-selected="false">Vents</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="pres-tab" data-toggle="tab" href="#pres" role="tab" aria-controls="pres" aria-selected="false">Préssion</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="tmp" role="tabpanel" aria-labelledby="tmp">
+                <div id="chartdivTmp" style="height:500px;"></div>
+            </div>
+            <div class="tab-pane fade" id="precip" role="tabpanel" aria-labelledby="precip-tab">
+                <div id="chartdivPrecip" style="height:500px;"></div>
+            </div>
+            <div class="tab-pane fade" id="vent" role="tabpanel" aria-labelledby="vent-tab">
+                <div id="chartdivVents" style="height:500px;"></div>
+            </div>
+            <div class="tab-pane fade" id="pres" role="tabpanel" aria-labelledby="pres-tab">
+                <div id="chartdivpres" style="height:500px;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid" style ="padding:2em; border-top:solid 2px black;">
+       <div class="row">
+          <div class="col-12">
+             <div class="card">
+                <div class="card-header">
+                   Tableau des Prévisions de ... à ...
+                </div>
+                <div class="card-body">
+                   <blockquote class="blockquote mb-0">
+                      <table class="table table-sm text-center" style="font-size:11px;">
+                         <thead class="thead-dark">
+                            <tr>
+                               <th scope="col">DATE</th>
+                               <th scope="col">PRES</th>
+                               <th scope="col">TMP</th>
+                               <th scope="col">TCDC</th>
+                               <th scope="col">RH</th>
+                               <th scope="col">WDIR</th>
+                               <th scope="col">WIND</th>
+                               <th scope="col">GUST</th>
+                               <th scope="col">TPRATE</th>
+                               <th scope="col">PRECIP</th>
+                               <th scope="col">SNOM</th>
+                               <th scope="col">GPRATE</th>
+                               <th scope="col">WEATHER</th>
+                            </tr>
+                         </thead>
+                         <tbody>
+                            {% for key, value in frcst %}
+                            <tr>
+                               <td nowrap class="align-middle">{{key|date("D d M H")}}h</td>
+                               <td class="align-middle">{{value.PRES}}hPa</td>
+                               <td class="align-middle" style ="{{ value.CSSTMP}}">{{value.TMP}}°</td>
+                               <td class="align-middle">{{value.TCDC}}%</td>
+                               <td class="align-middle">{{value.RH}}%</td>
+                               <td class="align-middle"><img src="{{rootImg}}/icon/fleche.png" style="{{value.CSSWDIR}}"/></td>
+                               <td class="align-middle" style ="{{ value.CSSWIND}}">{{value.WIND}}km/h</td>
+                               <td class="align-middle" style ="{{ value.CSSGUST}}">{{value.GUST}}km/h</td>
+                               <td class="align-middle" >{{value.TPRATE}}mm</td>
+                               <td class="align-middle" style="{{ value.CSSPRECIP }}">{{value.PRECIP}}mm</td>
+                               <td class="align-middle">{{value.SNOM}}cm</td>
+                               <td class="align-middle">{{value.GPRATE}}cm</td>
+                               <td class="align-middle"><img src="{{rootImg}}/fcstIcon/{{value.weather}}" style="max-width:40px"</td>
+                            </tr>
+                            {% endfor %}
+                         </tbody>
+                      </table>
+                   </blockquote>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+{% endblock %}
+{% block script %}
+    <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="https://www.amcharts.com/lib/3/serial.js"></script>
+<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+<script src="{{ rootScript }}/Forecast/Forecast.js"></script>
+<script type="text/javascript">
+
+   var chartDataTmp = {{ forecastJson.Tmp|raw }};
+   var chartDataPrecip = {{ forecastJson.Precip|raw }};
+   var chartDataWind = {{ forecastJson.Wind|raw }};
+   var chartDataPres = {{ forecastJson.Pres|raw }};
+
+   var chart = AmCharts.makeChart("chartdivTmp", {
+       "theme": "light",
+       "type": "serial",
+       "dataProvider": chartDataTmp,
+       "valueAxes": [{
+           "id": "v1",
+           "axisAlpha": 0.1
+       }],
+       "graphs": [{
+           "useNegativeColorIfDown": true,
+           "balloonText": "[[category]]<br><b>Température (°C): [[value]]</b>",
+           "bullet": "round",
+           "bulletBorderAlpha": 1,
+           "bulletBorderColor": "#FFFFFF",
+           "hideBulletsCount": 50,
+           "lineThickness": 2,
+           "lineColor": "#fdd400",
+           "negativeLineColor": "#67b7dc",
+           "valueField": "visits"
+       }],
+       
+       "chartCursor": {
+           "valueLineEnabled": false,
+           "valueLineBalloonEnabled": false
+       },
+       "categoryField": "date",
+       "categoryAxis": {
+           "parseDates": false,
+           "axisAlpha": 0,
+           "minHorizontalGap": 120
+       },
+       "export": {
+           "enabled": true
+       }
+   });
+
+  var chart = AmCharts.makeChart( "chartdivPrecip", {
+      "type": "serial",
+      "theme": "light",
+      "dataProvider": chartDataPrecip,
+      "gridAboveGraphs": true,
+      "startDuration": 1,
+      "graphs": [ {
+        "balloonText": "[[category]]: <b>[[value]]</b>",
+        "fillAlphas": 0.8,
+        "lineAlpha": 0.2,
+        "type": "column",
+        "valueField": "visits"
+      } ],
+      "chartCursor": {
+        "categoryBalloonEnabled": false,
+        "cursorAlpha": 0,
+        "zoomable": false
+      },
+      "categoryField": "date",
+           "categoryAxis": {
+               "parseDates": false,
+               "axisAlpha": 0,
+               "minHorizontalGap": 120
+           },
+      "export": {
+        "enabled": true
+      }
+} );
+
+   AmCharts.makeChart("chartdivVents",
+       {
+           "type": "serial",
+           "categoryField": "date",
+           "startDuration": 1,
+           "theme": "default",
+           "marginRight": 0,
+           "categoryAxis": {
+               "parseDates": false,
+               "axisAlpha": 0,
+               "minHorizontalGap": 120
+           },
+           "trendLines": [],
+           "graphs": [
+               {
+                   "balloonText": "[[title]]:[[value]] Km/h le [[category]]",
+                   "bullet": "round",
+                   "cornerRadiusTop": 1,
+                   "id": "AmGraph-1",
+                   "title": "Rafale",
+                   "topRadius": 0.94,
+                   "type": "smoothedLine",
+                   "valueField": "gust"
+               },
+               {
+                   "balloonText": "[[title]]:[[value]] Km/h le [[category]]",
+                   "bullet": "round",
+                   "id": "AmGraph-2",
+                   "minDistance": 38,
+                   "negativeBase": -1,
+                   "title": "Vent Moyen",
+                   "type": "smoothedLine",
+                   "valueField": "wind"
+               }
+           ],
+           "guides": [],
+           "allLabels": [],
+           "balloon": {},
+           "legend": {
+               "enabled": true,
+               "useGraphSettings": true
+           },
+           "chartCursor": {
+               "valueLineEnabled": true,
+               "valueLineBalloonEnabled": true
+           },
+           "export": {
+               "enabled": true
+           },
+           "dataProvider": chartDataWind
+       }
+   );
+
+   var chart = AmCharts.makeChart("chartdivpres", {
+       "theme": "light",
+       "type": "serial",
+       "marginRight": 80,
+       "autoMarginOffset": 20,
+       "marginTop":10,
+       "marginBottom":80,
+       "dataProvider": chartDataPres,
+       "valueAxes": [{
+           "id": "v1",
+           "axisAlpha": 0.1
+       }],
+       "graphs": [{
+           "useNegativeColorIfDown": true,
+           "balloonText": "[[category]]<br><b>Pression hPa: [[value]]</b>",
+           "bullet": "round",
+           "bulletBorderAlpha": 1,
+           "bulletBorderColor": "#FFFFFF",
+           "hideBulletsCount": 50,
+           "lineThickness": 2,
+           "lineColor": "#fdd400",
+           "negativeLineColor": "#67b7dc",
+           "valueField": "pres"
+
+       }],
+
+       "chartCursor": {
+           "valueLineEnabled": false,
+           "valueLineBalloonEnabled": false
+       },
+       "categoryField": "date",
+       "categoryAxis": {
+           "parseDates": false,
+           "axisAlpha": 0,
+           "minHorizontalGap": 120
+       },
+       "export": {
+           "enabled": true
+       }
+   });
+
+</script>
+{% endblock %}
+

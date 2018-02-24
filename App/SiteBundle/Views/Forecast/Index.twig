@@ -1,0 +1,18 @@
+{% extends 'SiteBundle/Views//Templates/Layout.twig' %}
+{% block head %}
+<title>MeteoVergne | Arome 0.025</title>
+{% endblock %}
+{% block content %}
+<div class="jumbotron headerModel">
+   <h1 class="display-3">Tableau des prévisions </h1>
+   <p class="lead">Pour le modèle {{ infoModel.title }}</p>
+</div>
+	<ul>
+		{% for activeCity in activeCities %}
+        <li><a href="{{ request.serverParams.REQUEST_URI }}/{{ activeCity.realName }}">{{ activeCity.realName }}</a></li>
+        {% else %}
+		Aucune ville trouvé
+    	{% endfor %}
+	</ul>
+
+{% endblock %}
