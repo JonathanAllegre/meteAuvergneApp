@@ -6,7 +6,7 @@ namespace App\SiteBundle\Controller {
     {
         public function index($parametres = null)
         {
-            $this->render('Admin/index.twig');
+            $this->render('Admin/Index.twig');
         }
 
         public function model($parametres = null)
