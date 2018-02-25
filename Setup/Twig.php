@@ -2,14 +2,16 @@
 
 namespace Setup;
 
-class Twig extends Config
+use App\SiteBundle\Services\AppFactory;
+
+class Twig
 {
     private $_loader;
     private $_twig;
 
     public function __construct()
     {
-        $conf = $this->getTwigConf();
+        $conf = AppFactory::getTwigConf();
         $loader = new \Twig_Loader_Filesystem(__DIR__.'/../App');
 
         if ($conf['twigCache']) {
@@ -26,12 +28,12 @@ class Twig extends Config
     {
         ### RACOURCI ####
         $param = array(
-                       'rootImg' => $this->getImg(),
-                       'rootCss' => $this->getCss(),
-                       'rootScript' => $this->getScript(),
-                       'rootPng' => $this->getPng(),
-                       'dataForecast' => $this->getdataForecastJson(),
-                       'pathRoot' => $this->getPathRoot()
+                       'rootImg' => AppFactory::getImg(),
+                       'rootCss' => AppFactory::getCss(),
+                       'rootScript' => AppFactory::getScript(),
+                       'rootPng' => AppFactory::getPng(),
+                       'dataForecast' => AppFactory::getdataForecastJson(),
+                       'pathRoot' => AppFactory::getPathRoot()
                        );
         
         if (!empty($var)) {

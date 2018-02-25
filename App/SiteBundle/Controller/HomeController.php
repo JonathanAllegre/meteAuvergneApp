@@ -2,6 +2,8 @@
 
 namespace App\SiteBundle\Controller;
 
+use App\SiteBundle\Services\AppFactory;
+
 class HomeController extends AppController
 {
     public function index($parametres)
@@ -9,7 +11,7 @@ class HomeController extends AppController
         
         ### GET MODEL MF
         
-        $modelManager = parent::getModelManager();
+        $modelManager = AppFactory::getManager('Model');
         $modelMF = $modelManager->getModelMf(1);
    
         $variables['modelMF'] = $modelMF;

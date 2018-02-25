@@ -9,14 +9,17 @@
 namespace App\SiteBundle\Services;
 
 use Setup\Config;
+use \PDO as PDO;
+use App\SiteBundle\Manager as Manager;
 
 
 class AppFactory extends Config
 {
     private static $config;
+    private static $bdd;
 
 
-    public static function getConfig()
+    private static function getConfig()
     {
         if(self::$config === null){
             self::$config = Config::parseConfigFile();
@@ -26,9 +29,10 @@ class AppFactory extends Config
         }
     }
 
-    public function getPdo()
+    private static function getBdd()
     {
-        $config = $this->parseConfigFile();
+
+        $config = self::getConfig();
 
         $bddLocal = $config['bddLocal'];
         $bddProd  = $config['bddProd'];
@@ -39,17 +43,28 @@ class AppFactory extends Config
             $pdoConf = $bddProd;
         }
 
-        try {
-            return new PDO('mysql:host='.$pdoConf['host'].';dbname='.$pdoConf['dbname'].'', ''.$pdoConf['utilisateur'].'', ''.$pdoConf['mdp'].'', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING, PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
-        } catch (PDOException $e) {
-            echo 'Échec de la connexion : ' . $e->getMessage();
-            exit;
+        if(self::$bdd === null){
+            try {
+                self::$bdd =  new PDO('mysql:host='.$pdoConf['host'].';dbname='.$pdoConf['dbname'].'', ''.$pdoConf['utilisateur'].'', ''.$pdoConf['mdp'].'', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING, PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
+            } catch (PDOException $e) {
+                echo 'Échec de la connexion : ' . $e->getMessage();
+            }
+           return self::$bdd;
+        }else{
+            return self::$bdd;
         }
+
     }
 
-    public function getTwigConf()
+    public static function getManager($manager)
     {
-        $config = $this->parseConfigFile();
+        $manager = "App\\SiteBundle\\Manager\\".$manager;
+        return new $manager(self::getBdd());
+    }
+
+    public static function getTwigConf()
+    {
+        $config = self::getConfig();
         $data['twigCache'] = $config['twigCache'];
         $data['cachePath'] = $config['cachePath'];
 
@@ -71,42 +86,42 @@ class AppFactory extends Config
         return $prefix;
     }
 
-    public function getCss()
+    public static function getCss()
     {
-        $prefix = $this->getPrefix();
+        $prefix = self::getPrefix();
         return 'http://' .$_SERVER['HTTP_HOST']  . $prefix .'/Webroot/Css';
     }
 
-    public function getImg()
+    public static function getImg()
     {
-        $prefix = $this->getPrefix();
+        $prefix = self::getPrefix();
         return 'http://' .$_SERVER['HTTP_HOST']  . $prefix .'/Webroot/Images';
     }
 
-    public function getScript()
+    public static function getScript()
     {
-        $prefix = $this->getPrefix();
+        $prefix = self::getPrefix();
         return 'http://' .$_SERVER['HTTP_HOST']  . $prefix .'/Webroot/Script';
     }
 
-    public function getPng()
+    public static function getPng()
     {
         return 'http://fam8.net/meteauvergneData/Png';
     }
 
-    public function getdataForecastJson()
+    public static function getdataForecastJson()
     {
         return 'http://fam8.net//meteauvergneData/jsonData';
     }
 
-    public function getInfoFileJson($parametre)
+    public static function getInfoFileJson($parametre)
     {
         return 'http://fam8.net/meteauvergneData/Info/'.$parametre;
     }
 
-    public function getPathRoot()
+    public static function getPathRoot()
     {
-        $prefix = $this->getPrefix();
+        $prefix = self::getPrefix();
         return 'http://' .$_SERVER['HTTP_HOST'] . $prefix;
     }
 

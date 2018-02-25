@@ -6,13 +6,13 @@ use App\SiteBundle\Entity\Model as EntityModel;
 use \PDO as PDO;
 use Setup\Config as Config;
 
-class Model extends Config
+class Model
 {
     private $_db;
     
-    public function __construct()
+    public function __construct(PDO $bdd)
     {
-        $this->setdb();
+        $this->_db = $bdd;
     }
     
     public function setdb()

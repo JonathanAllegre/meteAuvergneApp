@@ -2,7 +2,7 @@
 
 namespace Setup;
 
-use \PDO as PDO;
+
 use Symfony\Component\Yaml\Yaml;
 
 class Config
