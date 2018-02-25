@@ -7,8 +7,8 @@ use Symfony\Component\Yaml\Yaml;
 
 class Config
 {
-        
-    public function getConfig()
+
+    public function parseConfigFile()
     {
         return  Yaml::parseFile(__DIR__.'/../Config/General.yaml');
     }
