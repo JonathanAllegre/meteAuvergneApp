@@ -10,7 +10,7 @@ namespace App\SiteBundle\Services;
 
 use Setup\Config;
 use \PDO as PDO;
-use App\SiteBundle\Manager as Manager;
+use Setup\Twig;
 
 
 class AppFactory extends Config
@@ -123,6 +123,13 @@ class AppFactory extends Config
     {
         $prefix = self::getPrefix();
         return 'http://' .$_SERVER['HTTP_HOST'] . $prefix;
+    }
+
+    ### TWIG #####
+    public static function getView($path, $variables = null)
+    {
+
+        Twig::goTwig('SiteBundle/Views/'.$path.'.twig', $variables);
     }
 
 

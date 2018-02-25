@@ -4,7 +4,8 @@ namespace App\SiteBundle\Controller;
 
 use App\SiteBundle\Services\AppFactory;
 
-class HomeController extends AppController
+
+class HomeController
 {
     public function index($parametres)
     {
@@ -16,6 +17,6 @@ class HomeController extends AppController
    
         $variables['modelMF'] = $modelMF;
         
-        $this->renderView('Home/Index', $variables);
+        AppFactory::getView('Home/Index', $variables);
     }
 }

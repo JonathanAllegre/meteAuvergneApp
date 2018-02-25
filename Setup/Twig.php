@@ -6,10 +6,11 @@ use App\SiteBundle\Services\AppFactory;
 
 class Twig
 {
-    private $_loader;
-    private $_twig;
+    private static $loader;
+    private static $twig;
+    private static $instance;
 
-    public function __construct()
+    private static function setEnv()
     {
         $conf = AppFactory::getTwigConf();
         $loader = new \Twig_Loader_Filesystem(__DIR__.'/../App');
@@ -20,12 +21,17 @@ class Twig
             $twig = new \Twig_Environment($loader, array('cache' => false));
         }
         
-        $this->_loader = $loader;
-        $this->_twig = $twig;
+        self::$loader = $loader;
+        self::$twig = $twig;
+        self::$instance = 1;
     }
 
-    public function goTwig($template, $var = null)
+    public static function goTwig($template, $var = null)
     {
+        if(self::$instance === null)
+        {
+           self::setEnv();
+        }
         ### RACOURCI ####
         $param = array(
                        'rootImg' => AppFactory::getImg(),
@@ -42,6 +48,6 @@ class Twig
             $variable = $param;
         }
         
-        echo $this->_twig->render($template, $variable);
+        echo self::$twig->render($template, $variable);
     }
 }

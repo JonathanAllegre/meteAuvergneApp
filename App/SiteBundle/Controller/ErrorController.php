@@ -2,12 +2,14 @@
 
 namespace App\SiteBundle\Controller;
 
+use App\SiteBundle\Services\AppFactory;
 
-class ErrorController extends AppController
+
+class ErrorController
 {
     public function notFound()
     {
-    	$this->renderView('Errors/404');
+        AppFactory::getView('Errors/404');
 
     }
 }
