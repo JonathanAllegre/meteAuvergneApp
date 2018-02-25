@@ -6,21 +6,21 @@ use Setup\Config as Config;
 
 class City extends Config
 {
-    private $_idCity;
-    private $_department;
-    private $_slug;
-    private $_name;
-    private $_simpleName;
-    private $_realName;
-    private $_zipCode;
-    private $_longitude;
-    private $_latitude;
-    private $_minimalAltitude;
-    private $_maximalAltitude;
-    private $_activeArome0025;
-    private $_activeArome001;
-    private $_activeArpege;
-    private $_activeGfs;
+    private $idCity;
+    private $department;
+    private $slug;
+    private $name;
+    private $simpleName;
+    private $realName;
+    private $zipCode;
+    private $longitude;
+    private $latitude;
+    private $minimalAltitude;
+    private $maximalAltitude;
+    private $activeArome0025;
+    private $activeArome001;
+    private $activeArpege;
+    private $activeGfs;
 
 
     public function __construct(array $donnees)
@@ -48,77 +48,77 @@ class City extends Config
 
     public function getIdCity()
     {
-        return $this->_idCity;
+        return $this->idCity;
     }
 
     public function getDepartment()
     {
-        return $this->_department;
+        return $this->department;
     }
 
     public function getSlug()
     {
-        return $this->_slug;
+        return $this->slug;
     }
 
     public function getName()
     {
-        return $this->_name;
+        return $this->name;
     }
 
     public function getSimpleName()
     {
-        return $this->_simpleName;
+        return $this->simpleName;
     }
 
     public function getRealName()
     {
-        return $this->_realName;
+        return $this->realName;
     }
 
     public function getZipCode()
     {
-        return $this->_zipCode;
+        return $this->zipCode;
     }
 
     public function getLongitude()
     {
-        return $this->_longitude;
+        return $this->longitude;
     }
 
     public function getLatitude()
     {
-        return $this->_latitude;
+        return $this->latitude;
     }
 
     public function getMinimalAltitude()
     {
-        return $this->_minimalAltitude;
+        return $this->minimalAltitude;
     }
 
     public function getMaximalAltitude()
     {
-        return $this->_maximalAltitude;
+        return $this->maximalAltitude;
     }
 
     public function getActiveArome0025()
     {
-        return $this->_activeArome0025;
+        return $this->activeArome0025;
     }
 
     public function getActiveArome001()
     {
-        return $this->_activeArome001;
+        return $this->activeArome001;
     }
 
     public function getActiveArpege()
     {
-        return $this->_activeArpege;
+        return $this->activeArpege;
     }
 
     public function getActiveGfs()
     {
-        return $this->_activeGfs;
+        return $this->activeGfs;
     }
 
 
@@ -126,76 +126,76 @@ class City extends Config
 
     public function setIdCity($idCity)
     {
-        $this->_idCity = $idCity;
+        $this->idCity = $idCity;
     }
 
     public function setDepartment($department)
     {
-        $this->_department = $department;
+        $this->department = $department;
     }
 
     public function setSlug($slug)
     {
-        $this->_slug = $slug;
+        $this->slug = $slug;
     }
 
     public function setName($name)
     {
-        $this->_name = $name;
+        $this->name = $name;
     }
 
     public function setSimpleName($simpleName)
     {
-        $this->_simpleName = $simpleName;
+        $this->simpleName = $simpleName;
     }
 
     public function setRealName($realName)
     {
-        $this->_realName = $realName;
+        $this->realName = $realName;
     }
 
     public function setZipCode($zipCode)
     {
-        $this->_zipCode = $zipCode;
+        $this->zipCode = $zipCode;
     }
 
     public function setLongitude($longitude)
     {
-        $this->_longitude = $longitude;
+        $this->longitude = $longitude;
     }
 
     public function setLatitude($latitude)
     {
-        $this->_latitude = $latitude;
+        $this->latitude = $latitude;
     }
 
     public function setMinimalAltitude($minimalAltitude)
     {
-        $this->_minimalAltitude = $minimalAltitude;
+        $this->minimalAltitude = $minimalAltitude;
     }
 
     public function setMaximalAltitude($maximalAltitude)
     {
-        $this->_maximalAltitude = $maximalAltitude;
+        $this->maximalAltitude = $maximalAltitude;
     }
 
     public function setActiveArome0025($activeArome0025)
     {
-        $this->_activeArome0025 = $activeArome0025;
+        $this->activeArome0025 = $activeArome0025;
     }
 
     public function setActiveArome001($activeArome001)
     {
-        $this->_activeArome001 = $activeArome001;
+        $this->activeArome001 = $activeArome001;
     }
 
     public function setActiveArpege($activeArpege)
     {
-        $this->_activeArpege = $activeArpege;
+        $this->activeArpege = $activeArpege;
     }
 
     public function setActiveGfs($activeGfs)
     {
-        $this->_activeGfs = $activeGfs;
+        $this->activeGfs = $activeGfs;
     }
 }
