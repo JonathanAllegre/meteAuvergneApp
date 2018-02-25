@@ -3,8 +3,9 @@
 namespace Setup;
 
 use \Symfony\Component\Yaml\Yaml;
+use App\SiteBundle\Services\AppFactory;
 
-class Routes extends Config
+class Routes
 {
     private $_routes;
 
@@ -24,7 +25,7 @@ class Routes extends Config
     {
         $dispatcher = \FastRoute\simpleDispatcher(function (\FastRoute\RouteCollector $routes) {
             foreach ($this->_routes as $value) {
-                $routes->addRoute($value['method'], $this->getPrefix().$value['url'], ['controller' => $value['controller'], 'action' => $value['action'], 'bundle' => $value['bundle'] ]);
+                $routes->addRoute($value['method'], AppFactory::getPrefix().$value['url'], ['controller' => $value['controller'], 'action' => $value['action'], 'bundle' => $value['bundle'] ]);
             }
         });
 
