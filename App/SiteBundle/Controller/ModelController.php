@@ -24,7 +24,7 @@ class ModelController
         $infoSource         = $sourcesManager->read($infoModel->getDataSourceId());
         $listeParam         = $parametresManager->getAllParamByModel($infoModel->getIdModel(), $definition);
 
-        $urlJson    =AppFactory::getInfoFileJson($infoParametreMeteo->getInfoFile());
+        $urlJson    = AppFactory::getInfoFileJson($infoParametreMeteo->getInfoFile());
         $json       = file_get_contents($urlJson);
         $infoMaj    = json_decode($json, true);
 
@@ -184,7 +184,7 @@ class ModelController
         $variable['definition']         = 'HD';
 
         if (!empty($variable['infoParametreMeteo'])) {
-            $this->renderView('Model/Arpege01Hd', $variable);
+            AppFactory::getView('Model/Arpege01Hd', $variable);
         } else {
             $error = new ErrorController();
             $error->notFound();
