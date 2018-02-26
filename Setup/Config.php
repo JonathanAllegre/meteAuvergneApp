@@ -38,10 +38,29 @@ class Config
         $this->cachePath = $config['cachePath'];
     }
 
-
-    public static function parseConfigFile()
+    public function getPrefix()
     {
-        #var_dump(Yaml::parseFile(__DIR__.'/../Config/General.yaml'));
-        return  Yaml::parseFile(__DIR__.'/../Config/General.yaml');
+        return $this->prefix;
     }
+
+    public function getDbHost()
+    {
+        return $this->dbHost;
+    }
+
+    public function getDbName()
+    {
+        return $this->dbName;
+    }
+
+    public function getDbUser()
+    {
+        return $this->dbUser;
+    }
+
+    public function getDbMdp()
+    {
+        return $this->dbMdp;
+    }
+
 }

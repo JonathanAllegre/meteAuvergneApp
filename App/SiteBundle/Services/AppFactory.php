@@ -22,10 +22,10 @@ class AppFactory
     {
         if (self::$config === null) {
             self::$config = new Config();
-
-            var_dump(self::$config);
+            echo "on instance";
             return self::$config;
         } else {
+            echo "sur lattribut";
             return self::$config;
         }
     }
@@ -34,14 +34,7 @@ class AppFactory
     {
         $config = self::getConfig();
 
-        $bddLocal = $config['bddLocal'];
-        $bddProd  = $config['bddProd'];
-
-        if ($config['mod'] == 1) {
-            $pdoConf  = $bddLocal;
-        } else {
-            $pdoConf = $bddProd;
-        }
+        //TODO: Remplacer dans le NEW PDO les variables avec $this->>dbUser par exemple
 
         if (self::$bdd === null) {
             try {
@@ -73,16 +66,7 @@ class AppFactory
     public static function getPrefix()
     {
         $config = self::getConfig();
-        $prefixLocal = $config['prefixLocal'];
-        $prefixProd  = $config['prefixProd'];
-
-        if ($config['mod'] == 1) {
-            $prefix = $prefixLocal;
-        } else {
-            $prefix = $prefixProd;
-        }
-
-        return $prefix;
+        return $config->getPrefix();
     }
 
     public static function getCss()
