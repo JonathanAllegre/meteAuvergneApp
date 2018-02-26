@@ -3,8 +3,9 @@
 namespace App\SiteBundle\Controller;
 
 use App\SiteBundle\Entity\Model;
+use App\SiteBundle\Services\AppFactory;
 
-class ModelController extends AppController
+class ModelController
 {
 
     private function getVar($parametres, $model, $definition)
@@ -13,9 +14,9 @@ class ModelController extends AppController
         $paramMeteo         = $parametres['parametre'];
 
         ### MANAGER ####
-        $modeleManager     = parent::getModelManager();
-        $parametresManager = parent::getParametreManager();
-        $sourcesManager    = parent::getDataSourceManager();
+        $modeleManager     = AppFactory::getManager('Model');
+        $parametresManager = AppFactory::getManager('Parametre');
+        $sourcesManager    = AppFactory::getManager('DataSource');
 
         ### INFO ####
         $infoModel          = $modeleManager->getInfoModel($model);
@@ -23,7 +24,7 @@ class ModelController extends AppController
         $infoSource         = $sourcesManager->read($infoModel->getDataSourceId());
         $listeParam         = $parametresManager->getAllParamByModel($infoModel->getIdModel(), $definition);
 
-        $urlJson    = $this->getInfoFileJson($infoParametreMeteo->getInfoFile());
+        $urlJson    =AppFactory::getInfoFileJson($infoParametreMeteo->getInfoFile());
         $json       = file_get_contents($urlJson);
         $infoMaj    = json_decode($json, true);
 
@@ -125,7 +126,7 @@ class ModelController extends AppController
         $variable['definition']         = 'LD';
                     
         if (!empty($variable['infoParametreMeteo'])) {
-            $this->renderView('Model/Arome0025Ld', $variable);
+            AppFactory::getView('Model/Arome0025Ld', $variable);
         } else {
             $error = new ErrorController();
             $error->notFound();
@@ -154,7 +155,7 @@ class ModelController extends AppController
         $variable['definition']         = 'HD';
 
         if (!empty($variable['infoParametreMeteo'])) {
-            $this->renderView('Model/Arome0025Hd', $variable);
+            AppFactory::getView('Model/Arome0025Hd', $variable);
         } else {
             $error = new ErrorController();
             $error->notFound();

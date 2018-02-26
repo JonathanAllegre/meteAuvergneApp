@@ -9,17 +9,12 @@ use \PDO as PDO;
 class DataSource extends Config
 {
     private $_db;
-    
-    public function __construct()
+
+    public function __construct(PDO $bdd)
     {
-        $this->setdb();
+        $this->_db = $bdd;
     }
-    
-    public function setdb()
-    {
-        // on suppose que pdo est dans Config
-        $this->_db = $this->getPdo();
-    }
+
 
     public function read($id_data_source)
     {

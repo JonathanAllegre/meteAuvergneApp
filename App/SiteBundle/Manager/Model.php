@@ -15,12 +15,7 @@ class Model
         $this->_db = $bdd;
     }
     
-    public function setdb()
-    {
-        // on suppose que pdo est dans Config
-        $this->_db = $this->getPdo();
-    }
-    
+
     public function getModelMf($data_source_id)
     {
         $req = $this->_db->prepare('	SELECT *

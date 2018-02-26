@@ -3,6 +3,7 @@
 namespace App\SiteBundle\Controller;
 
 
+use App\SiteBundle\Services\AppFactory;
 use App\SiteBundle\Services\ForecastController\DynamicCss as Css;
 use Zend\Diactoros\ServerRequestFactory as ServerRequestFactory;
 
@@ -10,15 +11,15 @@ class ForecastController extends AppController
 {
     public function index($parametres = null)
     {
-        $villesManager      = parent::getCityManager();
-        $modelManager       = parent::getModelManager();
+        $villesManager      = AppFactory::getManager('City');
+        $modelManager       =AppFactory::getManager('Model');
         $activeCities       = $villesManager->readActive();
 
         $view['activeCities']   = $activeCities;
         $view['request']        = ServerRequestFactory::fromGlobals($_SERVER, $_GET);
         $view['infoModel']      = $modelManager->getInfoModel($parametres['model']);
 
-        parent::renderView('Forecast/Index', $view);
+        AppFactory::getView('Forecast/Index', $view);
     }
 
     /**
@@ -31,15 +32,15 @@ class ForecastController extends AppController
 
         #### Recuperation des infos Model ####
 
-        $modeleManager = parent::getModelManager();
-        $cityManager   = parent::getCityManager();
+        $modeleManager = AppFactory::getManager('Model');
+        $cityManager   = AppFactory::getManager('City');
 
         $infoModel     = $modeleManager->getInfoModel($model);
         $infoCity      = $cityManager->read($idVille);
 
         #### Reecriture du path selon model #####
         if ($model == "arome0025") {
-            $urlJson = $this->getdataForecastJson()."/arome0.025/data.json";
+            $urlJson = AppFactory::getdataForecastJson()."/arome0.025/data.json";
         }
 
         ### Get et DEcode Json ########
@@ -110,7 +111,7 @@ class ForecastController extends AppController
         $view['forecastJson'] = $forecastJson;
 
 
-        parent::renderView('Forecast/Forecast', $view);
+        AppFactory::getView('Forecast/Forecast', $view);
     }
 
     public function search($parametres)
@@ -121,12 +122,12 @@ class ForecastController extends AppController
 
         $variable['searchFor'] = $ville;
 
-        $cityManager = parent::getCityManager();
+        $cityManager = AppFactory::getManager('City');
 
         $result = $cityManager->search($ville);
 
         $variable['results'] = $result;
 
-        parent::renderView('Forecast/Search', $variable);
+        AppFactory::getView('Forecast/Search', $variable);
     }
 }

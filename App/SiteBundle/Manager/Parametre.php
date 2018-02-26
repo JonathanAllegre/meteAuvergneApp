@@ -10,16 +10,11 @@ class Parametre extends Config
 {
     private $_db;
     
-    public function __construct()
+    public function __construct(PDO $bdd)
     {
-        $this->setdb();
+        $this->_db = $bdd;
     }
-    
-    public function setdb()
-    {
-        // on suppose que pdo est dans Config
-        $this->_db = $this->getPdo();
-    }
+
     
     public function getInfoParametres($model_id, $slug, $definition)
     {

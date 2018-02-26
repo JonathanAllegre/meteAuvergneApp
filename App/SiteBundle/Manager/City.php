@@ -9,10 +9,10 @@ use Setup\Config as Config;
 class City extends Config
 {
     private $_db;
-    
-    public function __construct()
+
+    public function __construct(PDO $bdd)
     {
-        $this->setdb();
+        $this->_db = $bdd;
     }
     
     public function setdb()
