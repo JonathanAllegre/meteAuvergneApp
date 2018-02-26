@@ -12,7 +12,7 @@ use Setup\Config;
 use \PDO as PDO;
 use Setup\Twig;
 
-class AppFactory extends Config
+class AppFactory
 {
     private static $config;
     private static $bdd;
@@ -21,7 +21,9 @@ class AppFactory extends Config
     private static function getConfig()
     {
         if (self::$config === null) {
-            self::$config = Config::parseConfigFile();
+            self::$config = new Config();
+
+            var_dump(self::$config);
             return self::$config;
         } else {
             return self::$config;
