@@ -12,7 +12,6 @@ use Setup\Config;
 use \PDO as PDO;
 use Setup\Twig;
 
-
 class AppFactory extends Config
 {
     private static $config;
@@ -21,17 +20,16 @@ class AppFactory extends Config
 
     private static function getConfig()
     {
-        if(self::$config === null){
+        if (self::$config === null) {
             self::$config = Config::parseConfigFile();
             return self::$config;
-        }else{
+        } else {
             return self::$config;
         }
     }
 
     private static function getBdd()
     {
-
         $config = self::getConfig();
 
         $bddLocal = $config['bddLocal'];
@@ -43,17 +41,16 @@ class AppFactory extends Config
             $pdoConf = $bddProd;
         }
 
-        if(self::$bdd === null){
+        if (self::$bdd === null) {
             try {
                 self::$bdd =  new PDO('mysql:host='.$pdoConf['host'].';dbname='.$pdoConf['dbname'].'', ''.$pdoConf['utilisateur'].'', ''.$pdoConf['mdp'].'', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING, PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
             } catch (PDOException $e) {
                 echo 'Échec de la connexion : ' . $e->getMessage();
             }
-           return self::$bdd;
-        }else{
+            return self::$bdd;
+        } else {
             return self::$bdd;
         }
-
     }
 
     public static function getManager($manager)
@@ -128,9 +125,6 @@ class AppFactory extends Config
     ### TWIG #####
     public static function getView($path, $variables = null)
     {
-
         Twig::goTwig('SiteBundle/Views/'.$path.'.twig', $variables);
     }
-
-
 }
