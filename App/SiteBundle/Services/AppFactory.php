@@ -22,28 +22,41 @@ class AppFactory
     {
         if (self::$config === null) {
             self::$config = new Config();
-            echo "on instance";
+            //echo "on instance";
             return self::$config;
         } else {
-            echo "sur lattribut";
+            //echo "sur lattribut";
             return self::$config;
         }
     }
 
     private static function getBdd()
     {
-        $config = self::getConfig();
 
-        //TODO: Remplacer dans le NEW PDO les variables avec $this->>dbUser par exemple
 
         if (self::$bdd === null) {
+            echo "NewPdo";
+            $config = self::getConfig();
+            $host = $config->getDbHost();
+            $dbname = $config->getDbName();
+            $dbUser = $config->getDbUser();
+            $DbMdp = $config->getDbMdp();
+            $optPdo =  array(PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING,
+                PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8");
+
             try {
-                self::$bdd =  new PDO('mysql:host='.$pdoConf['host'].';dbname='.$pdoConf['dbname'].'', ''.$pdoConf['utilisateur'].'', ''.$pdoConf['mdp'].'', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING, PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
+                self::$bdd =  new PDO(
+                    'mysql:host='.$host.';dbname='.$dbname.'',
+                    ''.$dbUser.'',
+                    ''.$DbMdp.'',
+                    $optPdo
+                );
             } catch (PDOException $e) {
-                echo 'Échec de la connexion : ' . $e->getMessage();
+                echo 'Echec de la connexion : ' . $e->getMessage();
             }
             return self::$bdd;
         } else {
+            echo "pas new";
             return self::$bdd;
         }
     }
@@ -57,8 +70,9 @@ class AppFactory
     public static function getTwigConf()
     {
         $config = self::getConfig();
-        $data['twigCache'] = $config['twigCache'];
-        $data['cachePath'] = $config['cachePath'];
+
+        $data['twigCache'] = $config->getTwigCache();
+        $data['cachePath'] = $config->getCachePath();
 
         return $data;
     }

@@ -63,4 +63,14 @@ class Config
         return $this->dbMdp;
     }
 
+    public function getTwigCache()
+    {
+        return $this->twigCache;
+    }
+
+    public function getCachePath()
+    {
+        return $this->cachePath;
+    }
+
 }
