@@ -31,26 +31,18 @@ class AppFactory
     private static function getBdd()
     {
 
-
         if (self::$bdd === null) {
             $config = self::getConfig();
-            $host = $config->getDbHost();
-            $dbname = $config->getDbName();
-            $dbUser = $config->getDbUser();
-            $DbMdp = $config->getDbMdp();
             $optPdo =  array(PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING,
                 PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8");
 
-            try {
-                self::$bdd =  new PDO(
-                    'mysql:host='.$host.';dbname='.$dbname.'',
-                    ''.$dbUser.'',
-                    ''.$DbMdp.'',
-                    $optPdo
-                );
-            } catch (PDOException $e) {
-                echo 'Echec de la connexion : ' . $e->getMessage();
-            }
+            self::$bdd =  new PDO(
+                'mysql:host='.$config->getDbHost().';dbname='.$config->getDbName().'',
+                ''.$config->getDbUser().'',
+                ''.$config->getDbMdp().'',
+                $optPdo
+            );
+
             return self::$bdd;
         } else {
             return self::$bdd;
