@@ -22,10 +22,8 @@ class AppFactory
     {
         if (self::$config === null) {
             self::$config = new Config();
-            //echo "on instance";
             return self::$config;
         } else {
-            //echo "sur lattribut";
             return self::$config;
         }
     }
@@ -35,7 +33,6 @@ class AppFactory
 
 
         if (self::$bdd === null) {
-            echo "NewPdo";
             $config = self::getConfig();
             $host = $config->getDbHost();
             $dbname = $config->getDbName();
@@ -56,7 +53,6 @@ class AppFactory
             }
             return self::$bdd;
         } else {
-            echo "pas new";
             return self::$bdd;
         }
     }
