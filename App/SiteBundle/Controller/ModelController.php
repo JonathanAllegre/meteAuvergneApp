@@ -124,6 +124,7 @@ class ModelController
         $variable['infoModel']          = $infos['infoModel'];
         $variable['listeParam']         = $infos['listeParam'];
         $variable['definition']         = 'LD';
+
                     
         if (!empty($variable['infoParametreMeteo'])) {
             AppFactory::getView('Model/Arome0025Ld', $variable);

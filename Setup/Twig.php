@@ -3,6 +3,7 @@
 namespace Setup;
 
 use App\SiteBundle\Services\AppFactory;
+use App\SiteBundle\Services\LinkBuilder;
 
 class Twig
 {
@@ -20,6 +21,10 @@ class Twig
         } else {
             $twig = new \Twig_Environment($loader, array('cache' => false));
         }
+
+        // Add Global Objet LinkBuilder
+
+        $twig->addGlobal('LinkBuilder', new LinkBuilder());
         
         self::$loader = $loader;
         self::$twig = $twig;

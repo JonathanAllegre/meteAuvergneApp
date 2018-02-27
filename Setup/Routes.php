@@ -21,6 +21,11 @@ class Routes
         $this->dispatcher();
     }
 
+    public function getRoutes()
+    {
+        return $this->_routes;
+    }
+
     public function dispatcher()
     {
         $dispatcher = \FastRoute\simpleDispatcher(function (\FastRoute\RouteCollector $routes) {

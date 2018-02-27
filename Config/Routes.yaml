@@ -1,14 +1,14 @@
 ### Inserer les routes ici ###
 #### SITE BUNDLE #####
 
-0:
+Acceuil:
     method: GET
     url: /
     bundle: SiteBundle
     controller: HomeController
     action: Index
 
-1:
+Arome025Ld:
     method: GET
     url: /modele/arome0025/LD/{parametre}
     bundle: SiteBundle
