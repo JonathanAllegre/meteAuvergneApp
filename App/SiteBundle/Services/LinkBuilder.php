@@ -15,6 +15,8 @@ class LinkBuilder
     private $Routes;
     private $prefix;
 
+
+
     public function __construct()
     {
         if ($this->Routes === null) {
@@ -25,13 +27,13 @@ class LinkBuilder
         }
     }
 
-    public function getLink($name, $parametres = null)
+    public function getLink($routeName, $parametres = null)
     {
-        $route = $name;
+        $route = $routeName;
 
         $allRoutes = $this->Routes;
 
-        if (array_key_exists($name, $allRoutes)) {
+        if (array_key_exists($routeName, $allRoutes)) {
             $foundRoute = $allRoutes[$route];
         }
 
