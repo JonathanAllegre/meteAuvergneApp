@@ -21,13 +21,27 @@ class LinkBuilder
         }
     }
 
-    public function test($name, $parametres)
+    public function getLink($name, $parametres = null)
     {
-        $explode = explode(";", $parametres);
+        $route = $name;
+        $parametres = $parametres;
 
-        var_dump($explode);
-        $routes = $this->Routes;
-        var_dump($routes);
-        return $routes[$name]['url'];
+        $allRoutes = $this->Routes;
+
+        if (array_key_exists($name, $allRoutes)) {
+            $foundRoute = $allRoutes[$route];
+        }
+
+        if (isset($foundRoute)) {
+            $urlRoute = $foundRoute['url'];
+            foreach ($parametres as $key => $value) {
+                if (preg_match("/{" . $key . "}/", $urlRoute)) {
+                    $urlRoute = str_replace("{" . $key . "}", $value, $urlRoute);
+                } else {
+                    $urlRoute = "kjmklj";
+                }
+            }
+            return $urlRoute;
+        }
     }
 }

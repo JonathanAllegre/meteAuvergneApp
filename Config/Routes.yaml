@@ -15,7 +15,7 @@ Arome025Ld:
     controller: ModelController
     action: arome0025Ld
 
-2:
+Arome025Hd:
     method: GET
     url: /modele/arome0025/HD/{parametre}
     bundle: SiteBundle
@@ -23,28 +23,28 @@ Arome025Ld:
     action: arome0025Hd
 
 
-4:
+Arpege01HD:
     method: GET
     url: /modele/arpege01/HD/{parametre}
     bundle: SiteBundle
     controller: ModelController
     action: arpege01Hd
 
-5:
+ResultRecherche:
     method: POST
     url: /previsions/recherche
     bundle: SiteBundle
     controller: ForecastController
     action: search
 
-6:
+AcceuilRecherche:
     method: GET
     url: /previsions/{model}
     bundle: SiteBundle
     controller: ForecastController
     action: index
 
-7:
+detailForecast:
     method: GET
     url: /previsions/{model}/{idVille}/{slugVille}
     bundle: SiteBundle
