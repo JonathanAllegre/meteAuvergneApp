@@ -8,9 +8,7 @@
 
 namespace App\SiteBundle\Services;
 
-
 use Symfony\Component\Yaml\Yaml;
-
 
 class LinkBuilder
 {
@@ -23,14 +21,13 @@ class LinkBuilder
         }
     }
 
-    public function test($name,$parametres)
+    public function test($name, $parametres)
     {
-        $explode = explode(";",$parametres);
+        $explode = explode(";", $parametres);
 
         var_dump($explode);
         $routes = $this->Routes;
-        #var_dump($routes);
+        var_dump($routes);
         return $routes[$name]['url'];
     }
-
 }
