@@ -139,7 +139,6 @@ class DynamicCss
      */
     public static function cssApcp($precip)
     {
-
         $precip = $precip / 4;
         $precip = round($precip, 1);
         if ($precip < 0.5) {
@@ -160,7 +159,6 @@ class DynamicCss
      */
     public static function weather($tcdc, $csnow, $apcp)
     {
-
         if ($tcdc <= 5) {
             $icon = "32.png";
         } elseif ($tcdc >= 6 and $tcdc <=25) {

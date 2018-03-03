@@ -4,7 +4,6 @@ namespace App\SiteBundle\Controller;
 
 use App\SiteBundle\Services\AppFactory;
 
-
 class HomeController
 {
     public function index($parametres)

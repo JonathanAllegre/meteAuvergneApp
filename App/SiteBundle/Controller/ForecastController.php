@@ -2,7 +2,6 @@
 
 namespace App\SiteBundle\Controller;
 
-
 use App\SiteBundle\Services\AppFactory;
 use App\SiteBundle\Services\ForecastController\DynamicCss as Css;
 use Zend\Diactoros\ServerRequestFactory as ServerRequestFactory;

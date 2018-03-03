@@ -72,5 +72,4 @@ class Config
     {
         return $this->cachePath;
     }
-
 }

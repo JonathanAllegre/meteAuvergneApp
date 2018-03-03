@@ -30,7 +30,6 @@ class AppFactory
 
     private static function getBdd()
     {
-
         if (self::$bdd === null) {
             $config = self::getConfig();
             $optPdo =  array(PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING,

@@ -8,6 +8,4 @@ use App\SiteBundle\Manager as Manager;
 
 class AppController
 {
-
-
 }

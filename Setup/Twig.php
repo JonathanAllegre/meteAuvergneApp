@@ -33,9 +33,8 @@ class Twig
 
     public static function goTwig($template, $var = null)
     {
-        if(self::$instance === null)
-        {
-           self::setEnv();
+        if (self::$instance === null) {
+            self::setEnv();
         }
         ### RACOURCI ####
         $param = array(

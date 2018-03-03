@@ -42,7 +42,6 @@ class Routes
             $request->getUri()->getPath()
         );
 
-         #var_dump($routeInfo);
         
         switch ($routeInfo[0]) {
             case \FastRoute\Dispatcher::NOT_FOUND:

@@ -5,7 +5,6 @@ namespace App\SiteBundle\Manager;
 use App\SiteBundle\Entity\Model as EntityModel;
 use \PDO as PDO;
 
-
 class Model
 {
     private $_db;

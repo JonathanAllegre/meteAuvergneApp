@@ -18,8 +18,6 @@ class Parametre extends Config
     
     public function getInfoParametres($model_id, $slug, $definition)
     {
-
-
         $req = $this->_db->prepare('	SELECT *
 										FROM parametre
 										WHERE model_id = :model_id
@@ -39,7 +37,7 @@ class Parametre extends Config
         }
     }
     
-    public function getAllParamByModel($model_id,$definition)
+    public function getAllParamByModel($model_id, $definition)
     {
         $req = $this->_db->prepare('	SELECT *
 										FROM parametre
