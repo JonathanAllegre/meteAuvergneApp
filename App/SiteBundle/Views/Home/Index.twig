@@ -55,7 +55,7 @@
       <div class="card">
          <div class="card-block">
           {% if model.active %}
-           <a href="{{ pathRoot }}/modele/arome0025/HD/temperature-a-2-m"><img class="card-img-top" src="{{ rootImg }}/thumb_modele/{{ model.thumbnail }} " alt="Card image cap"></a>
+           <a href="{{ LinkBuilder.getLink('Arome025Hd', {parametre:"temperature-a-2-m"}) }}"><img class="card-img-top" src="{{ rootImg }}/thumb_modele/{{ model.thumbnail }} " alt="Card image cap"></a>
           {% else %}
            <img class="card-img-top" src="{{ rootImg }}/thumb_modele/{{ model.thumbnail }} " alt="Card image cap">
           {% endif %}

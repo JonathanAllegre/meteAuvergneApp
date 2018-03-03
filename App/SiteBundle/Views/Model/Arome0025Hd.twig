@@ -19,9 +19,9 @@
          <hr/>
          {% for param in listeParam %}
          {% if param.active %}
-             <a href="{{ pathRoot }}/modele/{{ infoModel.codeTitle }}/{{ definition }}/{{ param.slug }}" class="btn btn-outline-secondary btn-sm">{{ param.buttonTitle }}</a>
+             <a href="{{ LinkBuilder.getLink('Arome025Hd', {parametre: param.slug}) }}" class="btn btn-outline-secondary btn-sm">{{ param.buttonTitle }}</a>
           {% else %}
-             <a href="{{ pathRoot }}/modele/{{ infoModel.codeTitle }}/{{ param.url }}" class="btn btn-outline-secondary btn-sm disabled">{{ param.buttonTitle }}</a>
+             <a href="{{ LinkBuilder.getLink('Arome025Hd', {parametre: param.slug}) }}" class="btn btn-outline-secondary btn-sm disabled">{{ param.buttonTitle }}</a>
          {% endif %} 
          {% endfor %}
          <span id="baseUrl" url="{{ rootPng }}/{{ infoModel.codeTitle }}/{{ infoParametreMeteo.codeTitle }}"></span> 

@@ -6,7 +6,7 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="{{ pathRoot }}">Accueil <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="{{ LinkBuilder.getLink("Accueil") }}">Accueil <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Observations</a>
@@ -16,17 +16,17 @@
           Arome
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="{{ pathRoot }}/modele/arome0025/HD/temperature-a-2-m">Cartes Arome 0.025 HD</a>
-          <a class="dropdown-item" href="{{ pathRoot }}/modele/arome001/HD/">Cartes Arome 0.001 HD</a>
+          <a class="dropdown-item" href="{{ LinkBuilder.getLink('Arome025Hd',{parametre:'temperature-a-2-m'}) }}">Cartes Arome 0.025 HD</a>
+          <a class="dropdown-item" href="">Cartes Arome 0.001 HD</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="{{ pathRoot }}/modele/arome0025/LD/temperature-a-2-m">Cartes Arome 0.025 LD</a>
-          <a class="dropdown-item" href="{{ pathRoot }}/modele/arome001/LD/">Cartes Arome 0.001 LD</a>
+          <a class="dropdown-item" href="{{ LinkBuilder.getLink('Arome025Ld',{parametre:'temperature-a-2-m'}) }}">Cartes Arome 0.025 LD</a>
+          <a class="dropdown-item" href="">Cartes Arome 0.001 LD</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="{{ pathRoot }}/previsions/arome0025">Prévisions Arome 0.025</a>
+          <a class="dropdown-item" href="{{ LinkBuilder.getLink('AcceuilRecherche',{model:'arome025'}) }}">Prévisions Arome 0.025</a>
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ pathRoot }}/modele/arpege01/HD/pression-geop-z500">Arpege</a>
+        <a class="nav-link" href="{{ LinkBuilder.getLink('Arpege01Hd', {parametre:'pression-geop-z500'}) }}">Arpege</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">GFS</a>

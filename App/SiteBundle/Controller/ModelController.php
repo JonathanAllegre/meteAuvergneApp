@@ -4,10 +4,10 @@ namespace App\SiteBundle\Controller;
 
 use App\SiteBundle\Entity\Model;
 use App\SiteBundle\Services\AppFactory;
+use App\SiteBundle\Services\LinkBuilder;
 
 class ModelController
 {
-
     private function getVar($parametres, $model, $definition)
     {
         ### PARAMETRES ####
@@ -21,22 +21,27 @@ class ModelController
         ### INFO ####
         $infoModel          = $modeleManager->getInfoModel($model);
         $infoParametreMeteo = $parametresManager->getInfoParametres($infoModel->getIdModel(), $paramMeteo, $definition);
-        $infoSource         = $sourcesManager->read($infoModel->getDataSourceId());
-        $listeParam         = $parametresManager->getAllParamByModel($infoModel->getIdModel(), $definition);
+        if (empty($infoParametreMeteo)) {
+            $notFound = new LinkBuilder();
+            $notFound->notFound();
+        } else {
+            $infoSource = $sourcesManager->read($infoModel->getDataSourceId());
+            $listeParam = $parametresManager->getAllParamByModel($infoModel->getIdModel(), $definition);
 
-        $urlJson    = AppFactory::getInfoFileJson($infoParametreMeteo->getInfoFile());
-        $json       = file_get_contents($urlJson);
-        $infoMaj    = json_decode($json, true);
+            $urlJson = AppFactory::getInfoFileJson($infoParametreMeteo->getInfoFile());
+            $json = file_get_contents($urlJson);
+            $infoMaj = json_decode($json, true);
 
-        if (isset($infoMaj)) {
-            $data = array(
-                'infoModel' => $infoModel,
-                'infoParametreMeteo' => $infoParametreMeteo,
-                'infoSource' => $infoSource,
-                'infoMaj' => $infoMaj,
-                'listeParam' => $listeParam);
+            if (isset($infoMaj)) {
+                $data = array(
+                    'infoModel' => $infoModel,
+                    'infoParametreMeteo' => $infoParametreMeteo,
+                    'infoSource' => $infoSource,
+                    'infoMaj' => $infoMaj,
+                    'listeParam' => $listeParam);
 
-            return $data;
+                return $data;
+            }
         }
     }
 

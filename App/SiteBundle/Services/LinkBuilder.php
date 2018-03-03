@@ -13,18 +13,21 @@ use Symfony\Component\Yaml\Yaml;
 class LinkBuilder
 {
     private $Routes;
+    private $prefix;
 
     public function __construct()
     {
         if ($this->Routes === null) {
             $this->Routes = Yaml::parseFile('Config/Routes.yaml');
         }
+        if ($this->prefix === null) {
+            $this->prefix = AppFactory::getPrefix();
+        }
     }
 
     public function getLink($name, $parametres = null)
     {
         $route = $name;
-        $parametres = $parametres;
 
         $allRoutes = $this->Routes;
 
@@ -34,14 +37,30 @@ class LinkBuilder
 
         if (isset($foundRoute)) {
             $urlRoute = $foundRoute['url'];
-            foreach ($parametres as $key => $value) {
-                if (preg_match("/{" . $key . "}/", $urlRoute)) {
-                    $urlRoute = str_replace("{" . $key . "}", $value, $urlRoute);
-                } else {
-                    $urlRoute = "kjmklj";
+            if (!empty($parametres)) {
+                foreach ($parametres as $key => $value) {
+                    if (preg_match("/{" . $key . "}/", $urlRoute)) {
+                        $urlRoute = str_replace("{" . $key . "}", $value, $urlRoute);
+                    } else {
+                        $urlRoute = "";
+                    }
                 }
+                $urlRoute = $this->prefix . $urlRoute;
+            } else {
+                $urlRoute =  $this->prefix.$foundRoute['url'];
             }
             return $urlRoute;
+        } else {
+            return "";
         }
+    }
+
+    public function notFound()
+    {
+        $allRoutes = $this->Routes;
+        $foundRoute = $allRoutes[404];
+        $url = $this->prefix . $foundRoute['url'];
+        header('Location: '.$url);
+        exit;
     }
 }

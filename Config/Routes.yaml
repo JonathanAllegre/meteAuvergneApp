@@ -1,7 +1,7 @@
 ### Inserer les routes ici ###
 #### SITE BUNDLE #####
 
-Acceuil:
+Accueil:
     method: GET
     url: /
     bundle: SiteBundle
@@ -23,7 +23,7 @@ Arome025Hd:
     action: arome0025Hd
 
 
-Arpege01HD:
+Arpege01Hd:
     method: GET
     url: /modele/arpege01/HD/{parametre}
     bundle: SiteBundle
@@ -49,7 +49,14 @@ detailForecast:
     url: /previsions/{model}/{idVille}/{slugVille}
     bundle: SiteBundle
     controller: ForecastController
-    action: forecast 
+    action: forecast
+
+404:
+    method: GET
+    url: /notFound
+    bundle: SiteBundle
+    controller: ErrorController
+    action: notFound
 
 
     

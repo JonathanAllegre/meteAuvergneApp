@@ -30,25 +30,25 @@
 	    
 		   
 	      {% if result.activeArpege %}
-    			<td><a href="{{ pathRoot }}/previsions/arpege01/V={{ result.idCity }}"><i class="fa fa-check" aria-hidden="true"></i></a></td>
+    			<td><a href=""><i class="fa fa-check" aria-hidden="true"></i></a></td>
     	  {% else %}
     			<td><i class="fa fa-times" aria-hidden="true"></i></td>
 		  {% endif %}
 
 	      {% if result.activeArome0025 %}
-    			<td><a href="{{ pathRoot }}/previsions/arome0025/{{ result.idCity }}/{{ result.slug }}"><i class="fa fa-check" aria-hidden="true"></i></a></td>
+    			<td><a href="{{ LinkBuilder.getLink('detailForecast', {model:"arome0025", idVille:result.idCity, slugVille: result.slug}) }}"><i class="fa fa-check" aria-hidden="true"></i></a></td>
     	  {% else %}
     			<td><i class="fa fa-times" aria-hidden="true"></i></td>
 		  {% endif %}
 
 		  {% if result.activeArome001 %}
-    			<td><a href="{{ pathRoot }}/previsions/arome001/V={{ result.idCity }}"><i class="fa fa-check" aria-hidden="true"></i></a></td>
+    			<td><a href=""><i class="fa fa-check" aria-hidden="true"></i></a></td>
     	  {% else %}
     			<td><i class="fa fa-times" aria-hidden="true"></i></td>
 		  {% endif %}
 
 		  {% if result.activeGfs %}
-    			<td><a href="{{ pathRoot }}/previsions/gfs/V={{ result.idCity }}"><i class="fa fa-check" aria-hidden="true"></i></a></td>
+    			<td><a href=""><i class="fa fa-check" aria-hidden="true"></i></a></td>
     	  {% else %}
     			<td><i class="fa fa-times" aria-hidden="true"></i></td>
 		  {% endif %}
