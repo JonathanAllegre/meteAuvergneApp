@@ -18,6 +18,8 @@ class Parametre extends Config
     private $_infoFile;
     private $_mapFile;
     private $_active;
+    private $_numberOfDates;
+    private $_echeance;
 
 
     public function __construct(array $donnees)
@@ -103,6 +105,17 @@ class Parametre extends Config
         return $this->_active;
     }
 
+    public function getNumberOfDates()
+    {
+        return $this->_numberOfDates;
+    }
+
+    public function getEcheance()
+    {
+        return $this->_echeance;
+    }
+
+
 
     // SETTERS
 
@@ -164,5 +177,15 @@ class Parametre extends Config
     public function setActive($active)
     {
         $this->_active = $active;
+    }
+
+    public function setNumberOfDates($numberOdDates)
+    {
+        $this->_numberOfDates = $numberOdDates;
+    }
+
+    public function setEcheance($echeance)
+    {
+        $this->_echeance = $echeance;
     }
 }

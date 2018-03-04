@@ -16,7 +16,7 @@ class Model extends Config
     private $_dataSourceId;
     private $_url;
     private $_active;
-    private $_numberOfDates;
+
 
 
     public function __construct(array $donnees)
@@ -92,10 +92,6 @@ class Model extends Config
         return $this->_active;
     }
 
-    public function getNumberOfDates()
-    {
-        return $this->_numberOfDates;
-    }
 
 
     // SETTERS
@@ -150,8 +146,5 @@ class Model extends Config
         $this->_active = $active;
     }
 
-    public function setNumberOfDates($numberOfDates)
-    {
-        $this->_numberOfDates = $numberOfDates;
-    }
+
 }

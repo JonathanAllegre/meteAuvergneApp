@@ -3,6 +3,7 @@
 namespace App\SiteBundle\Controller;
 
 use App\SiteBundle\Entity\Model;
+use App\SiteBundle\Entity\Parametre;
 use App\SiteBundle\Services\AppFactory;
 use App\SiteBundle\Services\LinkBuilder;
 
@@ -88,18 +89,19 @@ class ModelController
         }
     }
 
-    private function getEcheancesArpege01($dateMaj, $run, Model $infoModel)
+
+    private function getEcheancesParam(Parametre $infoParam, $run, $dateMaj)
     {
-        $pasEcheance = 6;
+        $pasEcheance = $infoParam->getEcheance();
         if ($run == "00") {
             $maj = date("d-m-Y", strtotime($dateMaj));
-            $nbEchPlus1 = $infoModel->getNumberOfDates() + 1;
+            $nbEchPlus1 = $infoParam->getNumberOfDates() + 1;
             for ($i = 1; $i < $nbEchPlus1; $i++) {
-                $depart   = $i * $pasEcheance;
+                $depart   = $i + 7;
                 $begin    = date("D d H:i", strtotime($maj . ' +' . $depart . ' Hours'));
                 $echBar[] = array(
-                                'begin' => $begin,
-                        );
+                    'begin' => $begin,
+                );
             }
         }
 
@@ -146,8 +148,10 @@ class ModelController
         $dateMaj = $infos['infoMaj']['dateMaj'];
         $run = $infos['infoMaj']['Run'];
         $infoModel = $infos['infoModel'];
+        $infoParam = $infos['infoParametreMeteo'];
 
-        $echeances = $this->getEcheancesArome0025($dateMaj, $run, $infoModel);
+        $echeances = $this->getEcheancesParam($infoParam, $run, $dateMaj);
+        #$echeances = $this->getEcheancesArome0025($dateMaj, $run, $infoModel);
         
         ### Variables DE Vues ###
                     
@@ -174,12 +178,41 @@ class ModelController
 
         $dateMaj = $infos['infoMaj']['dateMaj'];
         $run = $infos['infoMaj']['Run'];
+        $infoParam = $infos['infoParametreMeteo'];
+
+        $echeances = $this->getEcheancesParam($infoParam, $run, $dateMaj);
+
+        ### Variables DE Vues ###
+                    
+        $variable['echBar']             = $echeances;
+        $variable['dateMaj']            = $infos['infoMaj']['dateMaj'];
+        $variable['run']                = $infos['infoMaj']['Run'];
+        $variable['Source']             = $infos['infoSource'];
+        $variable['infoParametreMeteo'] = $infos['infoParametreMeteo'];
+        $variable['infoModel']          = $infos['infoModel'];
+        $variable['listeParam']         = $infos['listeParam'];
+        $variable['definition']         = 'HD';
+
+        if (!empty($variable['infoParametreMeteo'])) {
+            AppFactory::getView('Model/Arpege01Hd', $variable);
+        } else {
+            $error = new ErrorController();
+            $error->notFound();
+        }
+    }
+
+    public function arpege01Ld($parametres)
+    {
+        $infos = $this->getVar($parametres, 'arpege01', 'LD');
+
+        $dateMaj = $infos['infoMaj']['dateMaj'];
+        $run = $infos['infoMaj']['Run'];
         $infoModel = $infos['infoModel'];
 
         $echeances = $this->getEcheancesArpege01($dateMaj, $run, $infoModel);
-        
+
         ### Variables DE Vues ###
-                    
+
         $variable['echBar']             = $echeances;
         $variable['dateMaj']            = $infos['infoMaj']['dateMaj'];
         $variable['run']                = $infos['infoMaj']['Run'];
