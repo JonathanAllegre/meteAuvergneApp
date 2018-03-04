@@ -23,12 +23,19 @@ Arome025Hd:
     action: arome0025Hd
 
 
-Arpege01Hd:
+Arpege01EuropeHd:
     method: GET
-    url: /modele/arpege01/HD/{parametre}
+    url: /modele/arpege01/HD/europe/{parametre}
     bundle: SiteBundle
     controller: ModelController
-    action: arpege01Hd
+    action: arpege01EuropeHd
+
+Arpege01FranceLd:
+    method: GET
+    url: /modele/arpege01/LD/france/{parametre}
+    bundle: SiteBundle
+    controller: ModelController
+    action: arpege01FranceLd
 
 ResultRecherche:
     method: POST

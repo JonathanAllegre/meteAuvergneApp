@@ -124,7 +124,7 @@ class ModelController
         }
     }
     
-    public function arpege01Hd($parametres)
+    public function arpege01EuropeHd($parametres)
     {
         $infos = $this->getVar($parametres, 'arpege01', 'HD');
 
@@ -154,9 +154,9 @@ class ModelController
         }
     }
 
-    public function arpege01Ld($parametres)
+    public function arpege01FranceLd($parametres)
     {
-        $infos = $this->getVar($parametres, 'arpege01', 'HD');
+        $infos = $this->getVar($parametres, 'arpege01', 'LD');
 
         $dateMaj = $infos['infoMaj']['dateMaj'];
         $run = $infos['infoMaj']['Run'];
@@ -167,6 +167,7 @@ class ModelController
 
         ### Variables DE Vues ###
 
+
         $variable['echBar']             = $echeances;
         $variable['dateMaj']            = $infos['infoMaj']['dateMaj'];
         $variable['run']                = $infos['infoMaj']['Run'];
@@ -174,10 +175,10 @@ class ModelController
         $variable['infoParametreMeteo'] = $infos['infoParametreMeteo'];
         $variable['infoModel']          = $infos['infoModel'];
         $variable['listeParam']         = $infos['listeParam'];
-        $variable['definition']         = 'HD';
+        $variable['definition']         = 'LD';
 
         if (!empty($variable['infoParametreMeteo'])) {
-            AppFactory::getView('Model/Arpege01Hd', $variable);
+            AppFactory::getView('Model/Arpege01FranceLd', $variable);
         } else {
             $error = new ErrorController();
             $error->notFound();
