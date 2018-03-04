@@ -11,22 +11,27 @@
       <li class="nav-item">
         <a class="nav-link" href="#">Observations</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ LinkBuilder.getLink('AcceuilRecherche',{model:'arome025'}) }}">Tableaux des prévisions</a>
+      </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Arome
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="{{ LinkBuilder.getLink('Arome025Hd',{parametre:'temperature-a-2-m'}) }}">Cartes Arome 0.025 HD</a>
-          <a class="dropdown-item" href="">Cartes Arome 0.001 HD</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="{{ LinkBuilder.getLink('Arome025Ld',{parametre:'temperature-a-2-m'}) }}">Cartes Arome 0.025 LD</a>
-          <a class="dropdown-item" href="">Cartes Arome 0.001 LD</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="{{ LinkBuilder.getLink('AcceuilRecherche',{model:'arome025'}) }}">Prévisions Arome 0.025</a>
+          <a class="dropdown-item" href="{{ LinkBuilder.getLink('Arome025Hd',{parametre:'temperature-a-2-m'}) }}">Cartes France 0.025 HD</a>
+          <a class="dropdown-item" href="{{ LinkBuilder.getLink('Arome025Ld',{parametre:'temperature-a-2-m'}) }}">Cartes France 0.025 LD</a>
         </div>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ LinkBuilder.getLink('Arpege01Hd', {parametre:'pression-geop-z500'}) }}">Arpege</a>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Arpege
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{{ LinkBuilder.getLink('Arpege01Hd', {parametre:'pression-geop-z500'}) }}">Cartes Europe HD 0.01</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="{{ LinkBuilder.getLink('Arome025Ld',{parametre:'temperature-a-2-m'}) }}"> Cartes France LD 0.01</a>
+        </div>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">GFS</a>
