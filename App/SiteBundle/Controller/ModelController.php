@@ -2,7 +2,6 @@
 
 namespace App\SiteBundle\Controller;
 
-use App\SiteBundle\Entity\Model;
 use App\SiteBundle\Entity\Parametre;
 use App\SiteBundle\Services\AppFactory;
 use App\SiteBundle\Services\LinkBuilder;
@@ -46,65 +45,20 @@ class ModelController
         }
     }
 
-    private function getEcheancesArome0025($dateMaj, $run, Model $infoModel)
-    {
-        if ($run == "12") {
-            $maj = date("d-m-Y", strtotime($dateMaj));
-            for ($i = 0; $i < $infoModel->getNumberOfDates(); $i++) {
-                $depart   = $i + 19;
-                $begin    = date("H", strtotime($maj . ' +' . $depart . ' Hours +30 Minutes'));
-                $end      = $begin + 1;
-                $echBar[] = array(
-                            'begin' => $begin,
-                            'end' => $end
-                            );
-            }
-        }
-        if ($run == "06") {
-            $maj = date("d-m-Y", strtotime($dateMaj));
-            for ($i = 0; $i < $infoModel->getNumberOfDates(); $i++) {
-                $depart   = $i + 13;
-                $begin    = date("H", strtotime($maj . ' +' . $depart . ' Hours +30 Minutes'));
-                $end      = $begin + 1;
-                $echBar[] = array(
-                            'begin' => $begin,
-                            'end' => $end
-                            );
-            }
-        }
-        if ($run == "00") {
-            $maj = date("d-m-Y", strtotime($dateMaj));
-            for ($i = 0; $i < $infoModel->getNumberOfDates(); $i++) {
-                $depart   = $i + 7;
-                $begin    = date("H", strtotime($maj . ' +' . $depart . ' Hours +30 Minutes'));
-                $end      = $begin + 1;
-                $echBar[] = array(
-                            'begin' => $begin,
-                            'end' => $end
-                            );
-            }
-        }
-        if (isset($echBar)) {
-            return $echBar;
-        }
-    }
-
 
     private function getEcheancesParam(Parametre $infoParam, $run, $dateMaj)
     {
         $pasEcheance = $infoParam->getEcheance();
-        if ($run == "00") {
-            $maj = date("d-m-Y", strtotime($dateMaj));
-            $nbEchPlus1 = $infoParam->getNumberOfDates() + 1;
-            for ($i = 1; $i < $nbEchPlus1; $i++) {
-                $depart   = $i + 7;
-                $begin    = date("D d H:i", strtotime($maj . ' +' . $depart . ' Hours'));
-                $echBar[] = array(
+        $decalage = 1;
+
+        $maj = date("d-m-Y", strtotime($dateMaj));
+        for ($i = 1; $i < $infoParam->getNumberOfDates() +1; $i++) {
+            $depart   =  $i * $pasEcheance + $decalage + $run + $infoParam->getDelay();
+            $begin    = date("D d H:i", strtotime($maj . ' +' . $depart . ' Hours'));
+            $echBar[] = array(
                     'begin' => $begin,
                 );
-            }
         }
-
         if (isset($echBar)) {
             return $echBar;
         }
@@ -117,9 +71,9 @@ class ModelController
 
         $dateMaj    = $infos['infoMaj']['dateMaj'];
         $run        = $infos['infoMaj']['Run'];
-        $infoModel  = $infos['infoModel'];
+        $infoParam = $infos['infoParametreMeteo'];
 
-        $echeances  = $this->getEcheancesArome0025($dateMaj, $run, $infoModel);
+        $echeances = $this->getEcheancesParam($infoParam, $run, $dateMaj);
         
         ### Variables DE Vues ###
                     
@@ -147,11 +101,9 @@ class ModelController
 
         $dateMaj = $infos['infoMaj']['dateMaj'];
         $run = $infos['infoMaj']['Run'];
-        $infoModel = $infos['infoModel'];
         $infoParam = $infos['infoParametreMeteo'];
 
         $echeances = $this->getEcheancesParam($infoParam, $run, $dateMaj);
-        #$echeances = $this->getEcheancesArome0025($dateMaj, $run, $infoModel);
         
         ### Variables DE Vues ###
                     
@@ -182,6 +134,7 @@ class ModelController
 
         $echeances = $this->getEcheancesParam($infoParam, $run, $dateMaj);
 
+
         ### Variables DE Vues ###
                     
         $variable['echBar']             = $echeances;
@@ -203,13 +156,14 @@ class ModelController
 
     public function arpege01Ld($parametres)
     {
-        $infos = $this->getVar($parametres, 'arpege01', 'LD');
+        $infos = $this->getVar($parametres, 'arpege01', 'HD');
 
         $dateMaj = $infos['infoMaj']['dateMaj'];
         $run = $infos['infoMaj']['Run'];
-        $infoModel = $infos['infoModel'];
+        $infoParam = $infos['infoParametreMeteo'];
 
-        $echeances = $this->getEcheancesArpege01($dateMaj, $run, $infoModel);
+        $echeances = $this->getEcheancesParam($infoParam, $run, $dateMaj);
+
 
         ### Variables DE Vues ###
 

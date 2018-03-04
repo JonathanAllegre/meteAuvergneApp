@@ -20,6 +20,7 @@ class Parametre extends Config
     private $_active;
     private $_numberOfDates;
     private $_echeance;
+    private $_delay;
 
 
     public function __construct(array $donnees)
@@ -115,6 +116,12 @@ class Parametre extends Config
         return $this->_echeance;
     }
 
+    public function getDelay()
+    {
+        return $this->_delay;
+    }
+
+
 
 
     // SETTERS
@@ -187,5 +194,10 @@ class Parametre extends Config
     public function setEcheance($echeance)
     {
         $this->_echeance = $echeance;
+    }
+
+    public function setDelay($delay)
+    {
+        $this->_delay = $delay;
     }
 }
